@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="en">    
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Task Management System</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-md navbar-light bg-success">
+<div class="container">
+    <a class="navbar-brand" href="{% url 'homepage' %}">
+        <span>Task Manager</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item {{ alltask }}">
+                    <a class="nav-link" href="{% url 'alltasks' %}">All tasks</a>
+                </li>
+                <li class="nav-item {{ create }}">
+                    <a class="nav-link" href="{% url 'createtask' %}">Create</a>
+                </li>
+        </ul>
+    {% endif %}
+    <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="#" id="logoutLink" class="nav-link">Logout</a>
+                    <form style="display: none;" method="POST" action="{% url 'logout' %}" id="logoutForm">
+                        {% csrf_token %}
+                        <button id="signOutBtn" type="submit">Logout</button>
+                    </form>
+                    <script>
+                        document.getElementById('logoutLink').addEventListener('click', function(e) {
+                            e.preventDefault();
+                            document.getElementById('logoutForm').submit();
+                        });
+                    </script>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+</nav>
+
+<div class="container">
+{% block content %}{% endblock %}
+</div>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+        {% if tasks %}
+             <h1>{{ tasks.count }} Task{{ tasks.count|pluralize }}</h1>
+        {% else %}
+                       <h1>All Tasks</h1>
+        {% endif %}
+    </div>
+</div>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+    {% if tasks %}
+        <div class="list-group">
+            {% for task in tasks %}
+                <a href="{% url 'edittask' task.id %}" class="list-group-item list-group-item-action"><b>{{ task.title }}</b><br>{{ task.description|truncatechars:30 }}<br><small>{{ task.due_date }}</small></a>
+                
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h2>You don't have any Task!</h2>
+        <br>
+        <a role="button" class="btn btn-primary" href="{% url 'createtask' %}">Create One</a>
+        </div>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

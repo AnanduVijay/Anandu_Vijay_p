@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+
+                 <h1>Simply Productive !</h1>
+            <p>"Empower Your Productivity: Seamlessly Organize, Prioritize, and Accomplish Tasks with Our Intuitive <b><i>Task Management System</i></b>." </p>
+            {% if user.is_authenticated %}
+             <a role="button" class="btn btn-primary btn-lg" href="{% url 'alltasks' %}">Start</a>
+             {% else %}
+             <a role="button" class="btn btn-primary btn-lg" href="{% url 'login' %}">Start</a>
+            {% endif %}
+        
+        </div>
+    </div>
+
+{% endblock %}
